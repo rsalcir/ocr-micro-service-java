@@ -1,4 +1,10 @@
-FROM openjdk:8
-ADD target/worker-ocr.jar worker-ocr.jar
+FROM java:8
+MAINTAINER Alcir Jr <rsalcir@gmail.com>
+
+WORKDIR /
+
+ADD ./target/worker-ocr.jar /worker-ocr.jar
+
 EXPOSE 8085
-ENTRYPOINT ["java", "- jar", "worker-ocr.jar"]
+
+CMD ["java", "-jar", "worker-ocr.jar"]

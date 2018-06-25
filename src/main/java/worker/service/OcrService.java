@@ -1,10 +1,8 @@
 package worker.service;
 
-import org.bytedeco.javacpp.BytePointer;
-import org.bytedeco.javacpp.lept;
-import org.bytedeco.javacpp.tesseract;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 import org.springframework.stereotype.Service;
 import worker.utils.FileUtils;
 
@@ -16,39 +14,19 @@ import java.nio.file.Paths;
 @Service
 public class OcrService {
 
-    private final tesseract.TessBaseAPI api;
+    private ITesseract iTesseract;
 
-    @Autowired
-    public OcrService(@Value("${tessdata.dir:classpath:/tessdata}") File tesseractData,
-                      @Value("${tessdata.lang:por}") String tesseractLang) {
-        this.api = new tesseract.TessBaseAPI();
-        String path = tesseractData.toPath().toString();
-        if (this.api.Init(path.toString(), tesseractLang) != 0) {
-            throw new IllegalStateException("Error initializing tesseract.");
-        }
+    public OcrService() {
+        iTesseract = new Tesseract();
+        Path path = Paths.get("src/main/resources/tessdata");
+        iTesseract.setDatapath(path.toString());
+        iTesseract.setLanguage("por");
     }
 
-    public String process(String imageUrl) throws IOException {
+    public String process(String imageUrl) throws IOException, TesseractException {
         File temporaryFile = FileUtils.createTemporaryFile(imageUrl);
-        return readFile(temporaryFile);
-    }
-
-    public String readFile(File file) {
-        BytePointer outText = null;
-        lept.PIX image = null;
-        try {
-            image = lept.pixRead(file.getAbsolutePath());
-            this.api.SetImage(image);
-            outText = this.api.GetUTF8Text();
-            file.delete();
-            return outText == null ? "" : outText.getString();
-        } finally {
-            if (outText != null) {
-                outText.deallocate();
-            }
-            if (image != null) {
-                lept.pixDestroy(image);
-            }
-        }
+        String result = iTesseract.doOCR(temporaryFile);
+        temporaryFile.delete();
+        return result;
     }
 }

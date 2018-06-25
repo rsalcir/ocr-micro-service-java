@@ -1,5 +1,6 @@
 package worker.resource;
 
+import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import worker.service.OcrService;
@@ -23,7 +24,7 @@ public class OcrApi {
     }
 
     @PostMapping
-    public String start(@RequestBody String url) throws IOException {
+    public String start(@RequestBody String url) throws IOException, TesseractException {
         return ocrService.process(url);
     }
 }

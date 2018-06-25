@@ -3,13 +3,12 @@ package worker.service;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.util.LoadLibs;
 import org.springframework.stereotype.Service;
 import worker.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 public class OcrService {
@@ -18,8 +17,7 @@ public class OcrService {
 
     public OcrService() {
         iTesseract = new Tesseract();
-        Path path = Paths.get("src/main/resources/tessdata");
-        iTesseract.setDatapath(path.toString());
+        iTesseract.setDatapath(LoadLibs.extractTessResources("tessdata").getAbsolutePath());
         iTesseract.setLanguage("por");
     }
 

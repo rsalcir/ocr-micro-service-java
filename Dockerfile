@@ -28,6 +28,8 @@ RUN apt-get install -y \
   tesseract-ocr-por \
   tesseract-ocr-eng
 
+ENV TESSDATA_PREFIX /tmp/tess4j/tessdata/por.traineddata
+
 WORKDIR /
 ADD ./target/worker-ocr.jar /worker-ocr.jar
 EXPOSE 8085

@@ -2,9 +2,7 @@ FROM ubuntu
 MAINTAINER Alcir Jr <rsalcir@gmail.com>
 
 RUN apt-get update && apt-get install -y \
-  software-properties-common \
-  git \
-  gcc
+  software-properties-common
 
 RUN \
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
@@ -14,8 +12,8 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle  
-  
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
 RUN add-apt-repository ppa:alex-p/tesseract-ocr && apt-get update
 
 RUN apt-get install -y \

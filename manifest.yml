@@ -1,0 +1,11 @@
+applications:
+- name: tesseract-por
+  path: target/worker-ocr.jar
+  buildpack: java_buildpack
+  env:
+    tessdata.lang: por
+- name: tesseract-jpn
+  path: target/worker-ocr.jar
+  buildpack: java_buildpack
+  env:
+    tessdata.lang: jpn

@@ -3,23 +3,27 @@ package worker.service;
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.lept;
 import org.bytedeco.javacpp.tesseract;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import worker.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class OcrService {
 
     private final tesseract.TessBaseAPI api;
 
+    @Autowired
     public OcrService(@Value("${tessdata.dir:classpath:/tessdata}") File tesseractData,
                       @Value("${tessdata.lang:por}") String tesseractLang) {
         this.api = new tesseract.TessBaseAPI();
         String path = tesseractData.toPath().toString();
-        if (this.api.Init(path, tesseractLang) != 0) {
+        if (this.api.Init(path.toString(), tesseractLang) != 0) {
             throw new IllegalStateException("Error initializing tesseract.");
         }
     }

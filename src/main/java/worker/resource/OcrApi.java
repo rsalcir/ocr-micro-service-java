@@ -17,6 +17,11 @@ public class OcrApi {
         this.ocrService = ocrService;
     }
 
+    @GetMapping
+    public String status() {
+        return "I'm working";
+    }
+
     @PostMapping
     public String start(@RequestBody String url) throws IOException {
         return ocrService.process(url);

@@ -45,10 +45,10 @@ public class OcrApi {
                     try {
                         String processedText = ocrService.process(url);
                         deferredResult.setResult(processedText);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e.getMessage());
-                    } catch (TesseractException e) {
-                        throw new RuntimeException(e.getMessage());
+                    } catch (IOException iOException) {
+                        iOException.printStackTrace();
+                    } catch (TesseractException tesseractException) {
+                        tesseractException.printStackTrace();
                     }
                 }
             }

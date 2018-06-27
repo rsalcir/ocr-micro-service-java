@@ -24,7 +24,7 @@ public class OcrApi {
     }
 
     @PostMapping
-    public String start(@RequestBody String url) throws IOException, TesseractException {
+    public String process(@RequestBody String url) throws IOException, TesseractException {
         return ocrService.process(url);
     }
 }

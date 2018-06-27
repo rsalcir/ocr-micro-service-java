@@ -5,10 +5,12 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.util.LoadLibs;
 import org.springframework.stereotype.Service;
-import worker.utils.FileUtils;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 @Service
 public class OcrService {
@@ -18,13 +20,13 @@ public class OcrService {
     public OcrService() {
         iTesseract = new Tesseract();
         iTesseract.setDatapath(LoadLibs.extractTessResources("tessdata").getAbsolutePath());
-        iTesseract.setLanguage("por");
     }
 
     public String process(String imageUrl) throws IOException, TesseractException {
-        File temporaryFile = FileUtils.createTemporaryFile(imageUrl);
-        String result = iTesseract.doOCR(temporaryFile);
-        temporaryFile.delete();
+        URL url = new URL(imageUrl);
+        InputStream inputStream = url.openStream();
+        BufferedImage imageBuffered = ImageIO.read(inputStream);
+        String result = iTesseract.doOCR(imageBuffered);
         return result;
     }
 }

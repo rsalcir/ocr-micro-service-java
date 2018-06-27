@@ -26,7 +26,7 @@ public class OcrService {
         URL url = new URL(imageUrl);
         InputStream inputStream = url.openStream();
         BufferedImage imageBuffered = ImageIO.read(inputStream);
-        String result = iTesseract.doOCR(imageBuffered);
-        return result;
+        String processedText = iTesseract.doOCR(imageBuffered);
+        return processedText;
     }
 }

@@ -15,11 +15,12 @@ import java.net.URL;
 @Service
 public class OcrService {
 
+    private static final String TESSERACT_DATA = "tessdata";
     private ITesseract iTesseract;
 
     public OcrService() {
         iTesseract = new Tesseract();
-        iTesseract.setDatapath(LoadLibs.extractTessResources("tessdata").getAbsolutePath());
+        iTesseract.setDatapath(LoadLibs.extractTessResources(TESSERACT_DATA).getAbsolutePath());
     }
 
     public String process(String imageUrl) throws IOException, TesseractException {

@@ -34,7 +34,7 @@ public class OcrApi {
     }
 
     @PostMapping
-    public DeferredResult<String> process(@RequestBody String url) {
+    public DeferredResult<String> process(@RequestBody DTO dto) {
         final DeferredResult<String> deferredResult = new DeferredResult<>();
         timer.schedule(new TimerTask() {
             @Override
@@ -43,7 +43,7 @@ public class OcrApi {
                     throw new RuntimeException();
                 } else {
                     try {
-                        String processedText = ocrService.process(url);
+                        String processedText = ocrService.process(dto.getLink());
                         deferredResult.setResult(processedText);
                     } catch (IOException iOException) {
                         iOException.printStackTrace();

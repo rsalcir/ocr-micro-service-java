@@ -1,4 +1,4 @@
-package worker.service;
+package service;
 
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;

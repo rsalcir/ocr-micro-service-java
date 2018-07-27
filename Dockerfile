@@ -29,6 +29,6 @@ RUN apt-get install -y \
 ENV TESSDATA_PREFIX /tmp/tess4j/tessdata/por.traineddata
 
 WORKDIR /
-ADD ./target/worker-ocr.jar /worker-ocr.jar
+ADD ./target/ocr-micro-service-java.jar /ocr-micro-service-java.jar
 EXPOSE 8085
-CMD ["java", "-jar", "worker-ocr.jar"]
+CMD ["java", "-jar", "ocr-micro-service-java.jar"]

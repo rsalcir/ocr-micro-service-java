@@ -1,17 +1,15 @@
-package worker.resource;
+package resource;
 
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import worker.service.OcrService;
+import service.OcrService;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @RestController
 @EnableAutoConfiguration
@@ -34,7 +32,7 @@ public class OcrApi {
     }
 
     @PostMapping
-    public DeferredResult<String> process(@RequestBody DTO dto) {
+    public DeferredResult<String> process(@RequestBody LinkDTO dto) {
         final DeferredResult<String> deferredResult = new DeferredResult<>();
         timer.schedule(new TimerTask() {
             @Override
@@ -43,7 +41,7 @@ public class OcrApi {
                     throw new RuntimeException();
                 } else {
                     try {
-                        String processedText = ocrService.process(dto.getLink());
+                        String processedText = ocrService.process(dto.url);
                         deferredResult.setResult(processedText);
                     } catch (IOException iOException) {
                         iOException.printStackTrace();

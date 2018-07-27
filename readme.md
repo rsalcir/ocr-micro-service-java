@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/rsalcir/ocr-micro-service-java.svg?branch=master)](https://travis-ci.org/rsalcir/ocr-micro-service-java)
+
 #ocr-micro-service-java
 
 #Construir container

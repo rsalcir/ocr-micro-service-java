@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ocr-micro-service-java</name>
+	<name>ocr-micro-ocr.service-java</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -63,7 +63,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>ocr-micro-service-java</finalName>
+		<finalName>ocr-micro-ocr.service-java</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

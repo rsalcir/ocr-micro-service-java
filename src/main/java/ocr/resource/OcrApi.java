@@ -1,11 +1,11 @@
-package resource;
+package ocr.resource;
 
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import service.OcrService;
+import ocr.service.OcrService;
 
 import java.io.IOException;
 import java.util.Timer;

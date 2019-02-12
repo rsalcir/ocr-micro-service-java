@@ -1,19 +1,21 @@
 package ocr.resource;
 
 import net.sourceforge.tess4j.TesseractException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 import ocr.service.OcrService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.async.DeferredResult;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@RestController
-@EnableAutoConfiguration
-@RequestMapping("/ocr")
+@Path("ocr")
+@Produces(MediaType.APPLICATION_JSON)
 public class OcrApi {
 
     private static final int DELAY_MILLISECONDS = 10;
@@ -26,13 +28,13 @@ public class OcrApi {
         this.ocrService = ocrService;
     }
 
-    @GetMapping
+    @GET
     public String status() {
         return "I'm working";
     }
 
-    @PostMapping
-    public DeferredResult<String> process(@RequestBody LinkDTO dto) {
+    @POST
+    public DeferredResult<String> process(LinkDTO dto) {
         final DeferredResult<String> deferredResult = new DeferredResult<>();
         timer.schedule(new TimerTask() {
             @Override

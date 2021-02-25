@@ -1,8 +1,7 @@
 
-#ocr-micro-ocr.service-java
+#ocr-micro-service-java
 
-Micro serviço em java com springboot utilizando tesseract ocr
-
+Projeto de estudo para aplicar os conceitos de microserviços e docker feito em java com springboot utilizando tesseract ocr
 
 #Construir container
 ``` sh
